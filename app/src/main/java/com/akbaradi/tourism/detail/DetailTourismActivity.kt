@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.akbaradi.tourism.R
 import com.akbaradi.tourism.core.data.source.local.entity.TourismEntity
+import com.akbaradi.tourism.core.domain.model.Tourism
 import com.akbaradi.tourism.core.ui.ViewModelFactory
 import com.akbaradi.tourism.databinding.ActivityDetailTourismBinding
 
@@ -29,11 +30,11 @@ class DetailTourismActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
-        val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
+        val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
     }
 
-    private fun showDetailTourism(detailTourism: TourismEntity?) {
+    private fun showDetailTourism(detailTourism: Tourism?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
             binding.content.tvDetailDescription.text = detailTourism.description

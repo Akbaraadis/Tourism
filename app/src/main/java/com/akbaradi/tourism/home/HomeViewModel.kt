@@ -2,10 +2,11 @@ package com.akbaradi.tourism.home
 
 import androidx.lifecycle.ViewModel
 import com.akbaradi.tourism.core.data.TourismRepository
+import com.akbaradi.tourism.core.domain.usecase.TourismUseCase
 
-class HomeViewModel(tourismRepository: TourismRepository) : ViewModel() {
+class HomeViewModel(tourismUseCase: TourismUseCase) : ViewModel() {
 
-    val tourism = tourismRepository.getAllTourism()
+    val tourism = tourismUseCase.getAllTourism()
 
 }
 
