@@ -6,10 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.akbaradi.tourism.R
-import com.akbaradi.tourism.core.data.source.local.entity.TourismEntity
 import com.akbaradi.tourism.core.domain.model.Tourism
-import com.akbaradi.tourism.core.ui.ViewModelFactory
 import com.akbaradi.tourism.databinding.ActivityDetailTourismBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailTourismActivity : AppCompatActivity() {
 
@@ -17,7 +16,8 @@ class DetailTourismActivity : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private lateinit var detailTourismViewModel: DetailTourismViewModel
+    private val detailTourismViewModel: DetailTourismViewModel by viewModel()
+
     private lateinit var binding: ActivityDetailTourismBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +26,6 @@ class DetailTourismActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
-        val factory = ViewModelFactory.getInstance(this)
-        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
