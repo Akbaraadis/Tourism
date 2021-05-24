@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.akbaradi.tourism.R
-import com.akbaradi.tourism.core.data.source.local.entity.TourismEntity
+import com.akbaradi.tourism.core.R
+import com.akbaradi.tourism.core.databinding.ItemListTourismBinding
 import com.akbaradi.tourism.core.domain.model.Tourism
-import com.akbaradi.tourism.databinding.ItemListTourismBinding
 import java.util.ArrayList
 
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
