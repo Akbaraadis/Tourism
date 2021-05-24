@@ -10,6 +10,10 @@ import com.akbaradi.tourism.core.data.source.remote.network.ApiService
 import com.akbaradi.tourism.core.data.source.remote.response.ListTourismResponse
 import com.akbaradi.tourism.core.data.source.remote.response.TourismResponse
 import com.akbaradi.tourism.core.utils.JsonHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,27 +30,22 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             }
     }
 
-    fun getAllTourism(): LiveData<ApiResponse<List<TourismResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()
-
-        //get data from api retrofit
-        val client = apiService.getList()
-        client.enqueue(object : Callback<ListTourismResponse> {
-            override fun onResponse(
-                call: Call<ListTourismResponse>,
-                response: Response<ListTourismResponse>
-            ) {
-                val dataArray = response.body()?.places
-                resultData.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+    suspend fun getAllTourism(): Flow<ApiResponse<List<TourismResponse>>> {
+        //get data from api remote
+        return flow {
+            try {
+                val response = apiService.getList()
+                val dataArray = response.places
+                if (dataArray.isNotEmpty()){
+                    emit(ApiResponse.Success(response.places))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e : Exception){
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
-
-            override fun onFailure(call: Call<ListTourismResponse>, t: Throwable) {
-                resultData.value = ApiResponse.Error(t.message.toString())
-                Log.e("RemoteDataSource", t.message.toString())
-            }
-        })
-
-        return resultData
+        }.flowOn(Dispatchers.IO)
     }
 }
 
