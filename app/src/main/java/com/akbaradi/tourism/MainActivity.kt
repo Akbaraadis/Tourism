@@ -56,13 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_favorite -> {
                 val uri = Uri.parse("tourismfavorite://favorite")
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
-//                fragment = FavoriteFragment()
-//                title = getString(R.string.menu_favorite)
-            }
-            R.id.nav_map -> {
-//                Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
-                val uri = Uri.parse("tourismapp://maps")
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
         if (fragment != null) {

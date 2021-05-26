@@ -13,12 +13,7 @@ import java.util.ArrayList
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
 
     private var listData = ArrayList<Tourism>()
-    private var OnItemClickTourismCallback : OnItemClickTourismCallback? = null
     var onItemClick: ((Tourism) -> Unit)? = null
-
-    fun setOnItemClick(onItemClickTourismCallback: OnItemClickTourismCallback){
-        this.OnItemClickTourismCallback = onItemClickTourismCallback
-    }
 
     fun setData(newListData: List<Tourism>?) {
         if (newListData == null) return
@@ -55,8 +50,4 @@ class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
             }
         }
     }
-}
-
-interface OnItemClickTourismCallback {
-    fun onItemClickedTourism(tourism: Tourism)
 }

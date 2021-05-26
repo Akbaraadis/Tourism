@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akbaradi.tourism.core.domain.model.Tourism
-import com.akbaradi.tourism.core.ui.OnItemClickTourismCallback
 import com.akbaradi.tourism.core.ui.TourismAdapter
 import com.akbaradi.tourism.detail.DetailTourismActivity
 import com.akbaradi.tourism.favorite.databinding.ActivityFavoriteBinding
@@ -29,14 +27,11 @@ class FavoriteActivity : AppCompatActivity() {
 
         favoriteAdapter = TourismAdapter()
         favoriteAdapter.notifyDataSetChanged()
-        favoriteAdapter.setOnItemClick(object : OnItemClickTourismCallback {
-            override fun onItemClickedTourism(tourism: Tourism) {
-                Intent(this@FavoriteActivity, DetailTourismActivity::class.java).also {
-                    it.putExtra(DetailTourismActivity.EXTRA_DATA, tourism)
-                    startActivity(it)
-                }
-            }
-        })
+        favoriteAdapter.onItemClick = { selectedData ->
+            val intent = Intent(this@FavoriteActivity, DetailTourismActivity::class.java)
+            intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
+            startActivity(intent)
+        }
 
         with(binding.rvTourism) {
             layoutManager = LinearLayoutManager(context)
