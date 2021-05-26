@@ -3,7 +3,6 @@ package com.akbaradi.tourism.di
 import com.akbaradi.tourism.core.domain.usecase.TourismInteractor
 import com.akbaradi.tourism.core.domain.usecase.TourismUseCase
 import com.akbaradi.tourism.detail.DetailTourismViewModel
-import com.akbaradi.tourism.favorite.FavoriteViewModel
 import com.akbaradi.tourism.home.HomeViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -14,6 +13,5 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
-    viewModel { FavoriteViewModel(get()) }
     viewModel { DetailTourismViewModel(get()) }
 }

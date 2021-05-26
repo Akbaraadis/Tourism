@@ -5,12 +5,10 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.akbaradi.tourism.databinding.ActivityMainBinding
-import com.akbaradi.tourism.favorite.FavoriteFragment
 import com.akbaradi.tourism.home.HomeFragment
 import com.google.android.material.navigation.NavigationView
 
