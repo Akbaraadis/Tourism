@@ -10,6 +10,7 @@ import com.akbaradi.tourism.core.domain.repository.ITourismRepo
 import com.akbaradi.tourism.core.utils.AppExecutors
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -34,10 +35,17 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
+        val hostname = "tourism-made.akbar.net"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/qwZ2ibJvu3/yE9I82qndDzxLjds/LkC9vc4/GFCdmR8=")
+            .add(hostname, "sha256/GI75anSEdkuHj05mreE0Sd9jE6dVqUIzzXRHHlZBVbI=")
+            .add(hostname, "sha256/r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
